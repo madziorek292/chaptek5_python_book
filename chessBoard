@@ -1,0 +1,79 @@
+#Walidator Słownika Szachowego
+#W tym rozdziale użyliśmy słownika {'1h': 'bking', '6c': 'wqueen', '2g': 'bbishop', '5h': 'bqueen', '3e': 'wking'}, aby przedstawić szachownicę. Napisz funkcję o nazwie isValidChessBoard(), która przyjmuje argument w postaci słownika i zwraca True lub False w zależności od tego, czy szachownica jest poprawna.
+
+#Poprawna szachownica musi spełniać następujące warunki:
+
+#Dokładnie jeden czarny król i dokładnie jeden biały król.
+#Każdy gracz może mieć maksymalnie 16 figur.
+#Każdy gracz może mieć maksymalnie 8 pionków.
+#Wszystkie figury muszą znajdować się na poprawnych polach od '1a' do '8h'; czyli żadna figura nie może znajdować się na polu '9z'.
+#Nazwy figur muszą zaczynać się od 'w' lub 'b', co oznacza odpowiednio białą lub czarną figurę, a następnie muszą zawierać jedno z wyrazów: 'pawn', 'knight', 'bishop', 'rook', 'queen' lub 'king'.
+#Funkcja powinna wykrywać, kiedy błąd spowodował niepoprawną szachownicę.
+
+#Wyjaśnienie zadania
+#Masz napisać funkcję, która sprawdzi, czy dany słownik poprawnie reprezentuje stan szachownicy zgodnie z wymienionymi zasadami. Oto jak podejść do tego zadania krok po kroku:
+
+#Sprawdzenie królów:
+
+#Upewnij się, że na szachownicy jest dokładnie jeden czarny król ('bking') i jeden biały król ('wking').
+#Sprawdzenie liczby figur:
+
+#Policz figury każdego gracza (czarne i białe) i upewnij się, że każda grupa ma nie więcej niż 16 figur.
+#Sprawdzenie liczby pionków:
+
+#Policz pionki ('wpawn' i 'bpawn') i upewnij się, że każdy gracz ma nie więcej niż 8 pionków.
+#Sprawdzenie poprawności pól:
+
+#Upewnij się, że wszystkie figury znajdują się na poprawnych polach od '1a' do '8h'.
+#Sprawdzenie poprawności nazw figur:
+
+#Upewnij się, że nazwy figur zaczynają się od 'w' lub 'b' i są zgodne z jednym z dozwolonych typów figur.
+#Implementacja w Pythonie
+#Oto przykładowa implementacja funkcji isValidChessBoard():
+
+def isValidChessBoard(board):
+    piece_count = {'w': 0, 'b': 0}
+    piece_types = {'wpawn': 0, 'bpawn': 0}
+    valid_spaces = {f'{r}{c}' for r in '12345678' for c in 'abcdefgh'}
+    valid_piece_names = {'pawn', 'knight', 'bishop', 'rook', 'queen', 'king'}
+    
+    wking_count = 0
+    bking_count = 0
+    
+    for position, piece in board.items():
+        # Check for valid position
+        if position not in valid_spaces:
+            return False
+        
+        # Check for valid piece name
+        if len(piece) < 2 or piece[0] not in 'wb' or piece[1:] not in valid_piece_names:
+            return False
+        
+        color = piece[0]
+        piece_count[color] += 1
+        
+        # Count the kings
+        if piece == 'wking':
+            wking_count += 1
+        elif piece == 'bking':
+            bking_count += 1
+        
+        # Count the pawns
+        if piece == 'wpawn':
+            piece_types['wpawn'] += 1
+        elif piece == 'bpawn':
+            piece_types['bpawn'] += 1
+    
+    # Validate king counts
+    if wking_count != 1 or bking_count != 1:
+        return False
+    
+    # Validate piece counts
+    if piece_count['w'] > 16 or piece_count['b'] > 16:
+        return False
+    
+    # Validate pawn counts
+    if piece_types['wpawn'] > 8 or piece_types['bpawn'] > 8:
+        return False
+    
+    return True
