@@ -1,0 +1,88 @@
+#Opis zadania:
+
+#Wyobraź sobie, że łup pokonanego smoka jest przedstawiony jako lista ciągów znaków, jak ta:
+
+#python
+#Skopiuj kod
+#dragonLoot = ['gold coin', 'dagger', 'gold coin', 'gold coin', 'ruby']
+#Napisz funkcję o nazwie addToInventory(inventory, addedItems), gdzie parametr inventory jest słownikiem reprezentującym ekwipunek gracza (jak w poprzednim projekcie), a parametr addedItems jest listą, jak dragonLoot.
+
+#Funkcja addToInventory() powinna zwracać słownik, który reprezentuje zaktualizowany ekwipunek. Zauważ, że lista addedItems może zawierać wiele takich samych przedmiotów.
+
+#Twoja funkcja może wyglądać mniej więcej tak:
+
+#python
+
+#def addToInventory(inventory, addedItems):
+    # tutaj wpisz swój kod
+#Przykład:
+inv = {'gold coin': 42, 'rope': 1}
+dragonLoot = ['gold coin', 'dagger', 'gold coin', 'gold coin', 'ruby']
+inv = addToInventory(inv, dragonLoot)
+displayInventory(inv)
+#Poprzedni program (z twoją funkcją displayInventory() z poprzedniego projektu) wyświetliłby następujący wynik:
+
+#yaml
+Skopiuj kod
+#Inventory:
+#45 gold coin
+#1 rope
+#1 ruby
+#1 dagger
+#Total number of items: 48
+#Wyjaśnienie
+#Słownik inventory:
+
+#Reprezentuje bieżący ekwipunek gracza.
+#Kluczami są nazwy przedmiotów, a wartościami ich liczba w ekwipunku.
+#Lista addedItems:
+
+#Zawiera przedmioty zdobyte przez gracza, np. po pokonaniu smoka.
+#Może zawierać wiele tych samych przedmiotów (np. kilka monet złota).
+#Cel funkcji addToInventory():
+
+#Zaktualizować słownik inventory o przedmioty z listy addedItems.
+#Jeśli przedmiot z addedItems już istnieje w inventory, zwiększ jego liczbę.
+#Jeśli przedmiotu nie ma w inventory, dodaj go z odpowiednią liczbą.
+#Implementacja
+#Poniżej przedstawiam przykładową implementację funkcji addToInventory:
+
+def addToInventory(inventory, addedItems):
+    for item in addedItems:
+        if item in inventory:
+            inventory[item] += 1
+        else:
+            inventory[item] = 1
+    return inventory
+
+# Przykładowe użycie
+inv = {'gold coin': 42, 'rope': 1}
+dragonLoot = ['gold coin', 'dagger', 'gold coin', 'gold coin', 'ruby']
+inv = addToInventory(inv, dragonLoot)
+
+# Zakładam, że funkcja displayInventory jest zdefiniowana gdzieś indziej
+def displayInventory(inventory):
+    print("Inventory:")
+    item_total = 0
+    for k, v in inventory.items():
+        print(f"{v} {k}")
+        item_total += v
+    print("Total number of items:", item_total)
+
+displayInventory(inv)
+
+#Wytłumaczenie kodu:
+#Funkcja addToInventory:
+
+#Iteruje przez każdy przedmiot w addedItems.
+#Sprawdza, czy przedmiot już istnieje w inventory.
+#Jeśli tak, zwiększa liczbę tego przedmiotu o 1.
+#Jeśli nie, dodaje ten przedmiot do inventory z liczbą równą 1.
+#Na koniec zwraca zaktualizowany słownik inventory.
+#Przykładowe użycie:
+
+#Definiujemy początkowy ekwipunek inv oraz listę zdobytych przedmiotów dragonLoot.
+#Wywołujemy addToInventory, aby zaktualizować ekwipunek.
+#Używamy funkcji displayInventory, aby wyświetlić zaktualizowany ekwipunek i całkowitą liczbę przedmiotów.
+#Funkcja displayInventory nie jest częścią zadania, ale jest używana do pokazania, jak działa zaktualizowany ekwipunek.
+
