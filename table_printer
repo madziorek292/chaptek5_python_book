@@ -1,0 +1,56 @@
+Zadanie
+Napisz funkcję o nazwie printTable(), która przyjmuje listę list ciągów znaków (stringów) i wyświetla je w dobrze zorganizowanej tabeli, z każdą kolumną wyrównaną do prawej. Załóż, że wszystkie wewnętrzne listy będą zawierały tę samą liczbę ciągów znaków.
+
+Na przykład, wartość może wyglądać tak:
+
+python
+Skopiuj kod
+tableData = [['apples', 'oranges', 'cherries', 'banana'],
+             ['Alice', 'Bob', 'Carol', 'David'],
+             ['dogs', 'cats', 'moose', 'goose']]
+Twoja funkcja printTable() powinna wydrukować następujący wynik:
+
+Skopiuj kod
+  apples Alice  dogs
+ oranges   Bob  cats
+cherries Carol moose
+  banana David goose
+Wskazówka:
+Twój kod najpierw musi znaleźć najdłuższy ciąg znaków w każdej z wewnętrznych list, aby cała kolumna była wystarczająco szeroka, aby pomieścić wszystkie ciągi. Możesz przechowywać maksymalną szerokość każdej kolumny jako listę liczb całkowitych. Funkcja printTable() może rozpocząć się od colWidths = [0] * len(tableData), co utworzy listę zawierającą tyle wartości 0, ile jest wewnętrznych list w tableData. W ten sposób colWidths[0] może przechowywać szerokość najdłuższego ciągu w tableData[0], colWidths[1] może przechowywać szerokość najdłuższego ciągu w tableData[1] i tak dalej. Możesz następnie znaleźć największą wartość na liście colWidths, aby dowiedzieć się, jaką szerokość przekazać metodzie rjust() ciągu znaków.
+
+Wyjaśnienie krok po kroku:
+Znalezienie maksymalnej szerokości każdej kolumny:
+
+Zainicjalizuj listę colWidths z zerami o długości równej liczbie wewnętrznych list w tableData.
+Dla każdej wewnętrznej listy znajdź długość najdłuższego ciągu znaków i przechowaj ją w odpowiednim miejscu na liście colWidths.
+#Drukowanie tabeli:
+
+#Przejdź przez każdą komórkę tabeli, używając wartości z colWidths, aby odpowiednio wyrównać ciągi znaków do prawej za pomocą metody rjust().
+#Implementacja:
+#Poniżej znajduje się kod funkcji printTable():
+
+
+def printTable(tableData):
+    # Znajdź maksymalną szerokość każdej kolumny
+    colWidths = [0] * len(tableData)
+    
+    for i in range(len(tableData)):
+        colWidths[i] = max(len(item) for item in tableData[i])
+    
+    # Wydrukuj każdy wiersz tabeli
+    for row in range(len(tableData[0])):
+        for col in range(len(tableData)):
+            print(tableData[col][row].rjust(colWidths[col]), end=' ')
+        print()
+
+# Przykład użycia
+tableData = [['apples', 'oranges', 'cherries', 'banana'],
+             ['Alice', 'Bob', 'Carol', 'David'],
+             ['dogs', 'cats', 'moose', 'goose']]
+printTable(tableData)
+#Gdy uruchomisz ten kod z dostarczonymi danymi tableData, wynik będzie wyglądał tak:
+
+
+#Podsumowanie:
+#Funkcja printTable() tworzy tabelę z list list ciągów znaków, wyrównując każdą kolumnę do prawej.
+#Najpierw oblicza maksymalną szerokość każdej kolumny, a następnie drukuje każdy wiersz z odpowiednim wyrównaniem.
